@@ -2,6 +2,7 @@ package org.music;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.music.Note.*;
 
@@ -18,7 +19,10 @@ public class BadMoonRising implements Song {
         List<Integer> a = chord.majorChord(A);
         List<Integer> g = chord.majorChord(G);
         allNotes = Arrays.asList(d, d, a, g, d, d);
-        allNotes.stream().map(l -> l.stream().map(i -> i + 57));
+        allNotes = allNotes.stream()
+                .map(l -> l.stream().map(i -> i + 57).collect(Collectors.toList()))
+                .collect(Collectors.toList());
+        System.out.println(allNotes);
     }
 
     @Override

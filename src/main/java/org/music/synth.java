@@ -26,14 +26,16 @@ public class synth {
     }
 
     private static void play(Song song, MidiChannel mc) throws Exception {
+        List<Integer> d = song.duration();
+        List<List<Integer>> n = song.notes();
         int dur = 0;
         int repeat = 5;
         while (repeat > 0){
-            for (List<Integer> notes : song.notes()) {
+            for (List<Integer> notes : n) {
                 for (Integer note : notes) {
                     mc.noteOn(note, 600);
                 }
-                Thread.sleep(NOTE_LENGTH * song.duration().get(dur));
+                Thread.sleep(NOTE_LENGTH * d.get(dur));
                 for (Integer note : notes) {
                     mc.noteOff(note, 600);
                 }
