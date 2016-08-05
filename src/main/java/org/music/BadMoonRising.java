@@ -1,0 +1,33 @@
+package org.music;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.music.Note.*;
+
+/**
+ * Created by gsoulages on 8/4/16.
+ */
+public class BadMoonRising implements Song {
+
+    List<List<Integer>> allNotes;
+    Chord chord = new Chord();
+
+    public BadMoonRising() {
+        List<Integer> d = chord.majorChord(D);
+        List<Integer> a = chord.majorChord(A);
+        List<Integer> g = chord.majorChord(G);
+        allNotes = Arrays.asList(d, d, a, g, d, d);
+        allNotes.stream().map(l -> l.stream().map(i -> i + 57));
+    }
+
+    @Override
+    public List<List<Integer>> notes() {
+        return allNotes;
+    }
+
+    @Override
+    public List<Integer> duration() {
+        return Arrays.asList(1, 3, 2, 2, 1, 3);
+    }
+}
