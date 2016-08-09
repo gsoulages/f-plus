@@ -18,31 +18,11 @@ public class synth {
 
             Song badMoonRising = new BadMoonRising();
 
-            play(badMoonRising, mc[0]);
+            PlayerImpl player = new PlayerImpl(60, mc[0]);
+            player.play(badMoonRising);
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);
-        }
-    }
-
-    private static void play(Song song, MidiChannel mc) throws Exception {
-        List<Integer> d = song.duration();
-        List<List<Integer>> n = song.notes();
-        int dur = 0;
-        int repeat = 5;
-        while (repeat > 0){
-            for (List<Integer> notes : n) {
-                for (Integer note : notes) {
-                    mc.noteOn(note, 600);
-                }
-                Thread.sleep(NOTE_LENGTH * d.get(dur));
-                for (Integer note : notes) {
-                    mc.noteOff(note, 600);
-                }
-                dur++;
-            }
-            dur = 0;
-            repeat--;
         }
     }
 }
