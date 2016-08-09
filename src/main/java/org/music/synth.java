@@ -2,10 +2,11 @@ package org.music;
 
 import javax.sound.midi.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class synth {
 
-    public static final int NOTE_LENGTH = 500;
+    public static final int TEMPO = 180;
 
     public static void main(String[] args) {
         try {
@@ -16,10 +17,17 @@ public class synth {
 
             synthesizer.loadInstrument(instruments[90]);
 
-            Song badMoonRising = new BadMoonRising();
+            SongReader songReader = new SongReader();
+            Song badMoonRising = songReader.read("/home/gsoulages/dev/f-plus/songs/bad-moon-rising.txt");
 
-            PlayerImpl player = new PlayerImpl(60, mc[0]);
-            player.play(badMoonRising);
+            List<List<Integer>> audibleNotes = badMoonRising.notes().stream()
+                    .map(l -> l.stream().map(i -> i + 57).collect(Collectors.toList()))
+                    .collect(Collectors.toList());
+
+            GenericSong audibleSong = new GenericSong(audibleNotes, badMoonRising.duration());
+
+            PlayerImpl player = new PlayerImpl(TEMPO, mc[0]);
+            player.play(audibleSong);
 
         } catch (Exception ex) {
             throw new RuntimeException(ex);

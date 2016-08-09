@@ -39,6 +39,7 @@ public class Chord {
         // whole step, whole step, half step, whole step, whole step, whole step, half step
         List<Float> intervals = Arrays.asList(1.0f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 0.5f);
         List<Integer> scale = new ArrayList<>();
+        scale.add(root);
         float sum = 0.0f;
         for (Float interval : intervals) {
             while (sum < interval) {

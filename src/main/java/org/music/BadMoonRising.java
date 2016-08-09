@@ -1,5 +1,6 @@
 package org.music;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,5 +34,14 @@ public class BadMoonRising implements Song {
     @Override
     public List<Integer> duration() {
         return Arrays.asList(1, 3, 2, 2, 1, 3);
+    }
+
+    private List<List<Integer>> copy(List<List<Integer>> a, int numCopies){
+        List<List<Integer>> output = new ArrayList<>(a);
+        for(int i=0; i < numCopies - 1; i++){
+            ArrayList<List<Integer>> copy = new ArrayList<>(a);
+            output.addAll(copy);
+        }
+        return output;
     }
 }
